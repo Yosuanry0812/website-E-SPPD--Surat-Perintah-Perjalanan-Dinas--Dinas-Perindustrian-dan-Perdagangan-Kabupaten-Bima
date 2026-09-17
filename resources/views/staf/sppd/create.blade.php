@@ -3,21 +3,30 @@
 @section('title', 'Buat SPPD Baru')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold mb-0"><i class="bi bi-plus-circle me-2"></i>Buat Pengajuan SPPD Baru</h4>
-    <a href="{{ route('staf.dashboard') }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Kembali</a>
-</div>
-
-<div class="card">
-    <div class="card-body p-4">
-        <form method="POST" action="{{ route('staf.sppd.store') }}" enctype="multipart/form-data">
-            @csrf
-            @include('partials.sppd-form', [
-                'sppd' => null,
-                'showUpload' => true,
-                'buttonText' => 'Simpan Pengajuan SPPD',
-            ])
-        </form>
+@if ($errors->any())
+    <div class="bg-error-container border border-error/30 text-on-error-container rounded-xl px-5 py-4 flex items-start gap-3 mb-6">
+        <span class="material-symbols-outlined text-[20px] mt-0.5">error</span>
+        <div class="text-sm">
+            <strong>Terjadi kesalahan:</strong>
+            <ul class="mt-1" style="list-style:disc;padding-left:1.1rem;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     </div>
-</div>
+@endif
+
+<form method="POST" action="{{ route('staf.sppd.store') }}" enctype="multipart/form-data">
+    @csrf
+    @include('partials.sppd-form', [
+        'sppd' => null,
+        'showUpload' => true,
+        'buttonText' => 'Simpan Data SPPD',
+        'title' => 'Buat Pengajuan SPPD Baru',
+        'subtitle' => 'Lengkapi formulir di bawah ini untuk mengajukan Surat Perintah Perjalanan Dinas baru.',
+        'backUrl' => route('staf.dashboard'),
+    ])
+    <div style="height:120px;" aria-hidden="true"></div>
+</form>
 @endsection

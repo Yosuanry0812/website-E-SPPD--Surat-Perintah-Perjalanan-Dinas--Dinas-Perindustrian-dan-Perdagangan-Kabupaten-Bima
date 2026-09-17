@@ -1,49 +1,60 @@
-<aside class="sidebar">
-    <div class="brand d-flex align-items-center gap-2">
-        <i class="bi bi-briefcase-fill fs-4"></i>
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-sidebar-width max-w-[85vw] bg-surface border-r border-outline-variant/30 z-50 flex flex-col py-stack-md shadow-sm hidden md:flex">
+    <div class="px-gutter pb-stack-lg border-b border-outline-variant/20 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+            <span class="material-symbols-outlined text-[24px]">account_balance</span>
+        </div>
         <div>
-            <div>E-SPPD</div>
-            <small style="font-weight:400;font-size:.7rem;">Disperindag Kab. Bima</small>
+            <h1 class="font-headline-sm text-headline-sm font-bold text-primary">E-SPPD Bima</h1>
+            <p class="font-label-md text-label-md text-on-surface-variant font-normal">Disperindag Kab. Bima</p>
         </div>
     </div>
 
-    <nav class="nav flex-column mt-3">
-        @if (auth()->user()->isAdmin())
-            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+    @if (auth()->user()->isAdmin())
+        <nav class="flex-1 overflow-y-auto py-stack-md px-4 flex flex-col gap-2">
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.dashboard') ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high' }} rounded-xl transition-colors duration-200 active:scale-95" href="{{ route('admin.dashboard') }}">
+                <span class="material-symbols-outlined" @if(request()->routeIs('admin.dashboard')) style="font-variation-settings: 'FILL' 1;" @endif>dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
             </a>
-            <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
-                <i class="bi bi-people-fill me-2"></i>Kelola Akun Staf
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.users.*') ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high' }} rounded-xl transition-colors duration-200 active:scale-95" href="{{ route('admin.users.index') }}">
+                <span class="material-symbols-outlined" @if(request()->routeIs('admin.users.*')) style="font-variation-settings: 'FILL' 1;" @endif>group</span>
+                <span class="font-label-md text-label-md">Manajemen Staf</span>
             </a>
-            <a class="nav-link {{ request()->routeIs('admin.sppd.*') ? 'active' : '' }}" href="{{ route('admin.sppd.index') }}">
-                <i class="bi bi-journal-text me-2"></i>Data SPPD
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.sppd.*') ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high' }} rounded-xl transition-colors duration-200 active:scale-95" href="{{ route('admin.sppd.index') }}">
+                <span class="material-symbols-outlined" @if(request()->routeIs('admin.sppd.*')) style="font-variation-settings: 'FILL' 1;" @endif>description</span>
+                <span class="font-label-md text-label-md">Kelola SPPD</span>
             </a>
-            <a class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}" href="{{ route('admin.laporan.index') }}">
-                <i class="bi bi-file-earmark-bar-graph-fill me-2"></i>Laporan SPPD
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.laporan.*') ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high' }} rounded-xl transition-colors duration-200 active:scale-95" href="{{ route('admin.laporan.index') }}">
+                <span class="material-symbols-outlined" @if(request()->routeIs('admin.laporan.*')) style="font-variation-settings: 'FILL' 1;" @endif>analytics</span>
+                <span class="font-label-md text-label-md">Rekapitulasi</span>
             </a>
-        @else
-            <a class="nav-link {{ request()->routeIs('staf.dashboard') ? 'active' : '' }}" href="{{ route('staf.dashboard') }}">
-                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+        </nav>
+    @else
+        <nav class="flex-1 overflow-y-auto py-stack-md px-4 flex flex-col gap-2">
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('staf.dashboard') ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high' }} rounded-xl transition-colors duration-200 active:scale-95" href="{{ route('staf.dashboard') }}">
+                <span class="material-symbols-outlined" @if(request()->routeIs('staf.dashboard')) style="font-variation-settings: 'FILL' 1;" @endif>dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
             </a>
-            <a class="nav-link {{ request()->routeIs('staf.sppd.create') ? 'active' : '' }}" href="{{ route('staf.sppd.create') }}">
-                <i class="bi bi-plus-circle-fill me-2"></i>Buat SPPD Baru
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('staf.sppd.*') ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high' }} rounded-xl transition-colors duration-200 active:scale-95" href="{{ route('staf.sppd.create') }}">
+                <span class="material-symbols-outlined" @if(request()->routeIs('staf.sppd.*')) style="font-variation-settings: 'FILL' 1;" @endif>add_circle</span>
+                <span class="font-label-md text-label-md">Buat SPPD Baru</span>
             </a>
-        @endif
-    </nav>
+        </nav>
+    @endif
 
-    <div class="user-box">
-        <div class="d-flex align-items-center gap-2 mb-2">
-            <i class="bi bi-person-circle fs-4"></i>
-            <div class="text-truncate">
-                <div class="fw-semibold text-truncate">{{ auth()->user()->nama_lengkap }}</div>
-                <small>{{ auth()->user()->role }} • {{ auth()->user()->nip }}</small>
-            </div>
+    <div class="px-4 pt-stack-md border-t border-outline-variant/20 mt-auto flex flex-col gap-2">
+        <a href="{{ auth()->user()->isAdmin() ? route('admin.sppd.index') : route('staf.sppd.create') }}" class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-md text-label-md hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            Buat Laporan Baru
+        </a>
+        <div class="flex flex-col gap-1 mt-2">
+            <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+                <span class="material-symbols-outlined text-[20px]">settings</span>
+                <span class="font-label-md text-label-md font-normal">Settings</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+                <span class="material-symbols-outlined text-[20px]">help</span>
+                <span class="font-label-md text-label-md font-normal">Bantuan</span>
+            </a>
         </div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="btn btn-sm btn-outline-light w-100">
-                <i class="bi bi-box-arrow-right me-1"></i>Logout
-            </button>
-        </form>
     </div>
 </aside>

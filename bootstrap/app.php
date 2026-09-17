@@ -16,6 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
             'is_admin' => \App\Http\Middleware\IsAdmin::class,
             'is_staf' => \App\Http\Middleware\IsStaf::class,
         ]);
+
+        $middleware->redirectGuestsTo(fn () => route('login'));
+
+        $middleware->redirectUsersTo(function (Request $request) {
+            return $request->user()?->isAdmin() ? '/admin/dashboard' : '/staf/dashboard';
+        });
+
+        // Percayai proxy (ngrok/cloudflare) agar deteksi https benar
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

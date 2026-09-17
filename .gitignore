@@ -1,5 +1,6 @@
 *.log
 .DS_Store
+/start-demo.bat
 .env
 .env.backup
 .env.production

@@ -9,7 +9,13 @@ use App\Http\Controllers\Staf\StafDashboardController;
 use App\Http\Controllers\Staf\StafSppdController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect()->route('login'));
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect(auth()->user()->isAdmin() ? '/admin/dashboard' : '/staf/dashboard');
+    }
+
+    return redirect()->route('login');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

@@ -3,48 +3,65 @@
 @section('title', 'Tambah Akun Staf')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold mb-0"><i class="bi bi-person-plus me-2"></i>Tambah Akun Staf</h4>
-    <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Kembali</a>
+{{-- Header --}}
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+    <div>
+        <h2 class="font-display-lg text-[32px] font-bold text-on-surface tracking-tight">Tambah Akun Staf</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Buat akun baru untuk pegawai pengaju SPPD.</p>
+    </div>
+    <a href="{{ route('admin.users.index') }}" class="px-4 py-2.5 border border-outline-variant/40 text-on-surface rounded-xl font-label-md text-label-md flex items-center gap-2 hover:bg-[#F8FAFC] transition-colors bg-surface-container-lowest shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        Kembali
+    </a>
 </div>
 
-<div class="card">
-    <div class="card-body p-4">
-        <form method="POST" action="{{ route('admin.users.store') }}" class="row g-3">
-            @csrf
-            <div class="col-md-6">
-                <label class="form-label">NIP <span class="text-danger">*</span></label>
-                <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror" value="{{ old('nip') }}" required>
-                @error('nip')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-                <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" value="{{ old('nama_lengkap') }}" required>
-                @error('nama_lengkap')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Jabatan <span class="text-danger">*</span></label>
-                <input type="text" name="jabatan" class="form-control @error('jabatan') is-invalid @enderror" value="{{ old('jabatan') }}" required>
-                @error('jabatan')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Pangkat/Golongan <span class="text-danger">*</span></label>
-                <input type="text" name="pangkat_golongan" class="form-control @error('pangkat_golongan') is-invalid @enderror" value="{{ old('pangkat_golongan') }}" placeholder="cth: III/a" required>
-                @error('pangkat_golongan')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Password <span class="text-danger">*</span></label>
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" minlength="8" required>
-                @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
-                <input type="password" name="password_confirmation" class="form-control" required>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary px-4"><i class="bi bi-check-lg me-1"></i>Simpan</button>
-            </div>
-        </form>
+{{-- Form --}}
+<div class="bg-surface-container-lowest rounded-2xl table-shadow border border-outline-variant/20 overflow-hidden max-w-4xl">
+    <div class="px-5 py-5 md:px-8 md:py-6 border-b border-outline-variant/20 bg-surface-container-lowest">
+        <h3 class="font-headline-sm text-xl font-bold text-on-surface">Data Pegawai</h3>
     </div>
+    <form method="POST" action="{{ route('admin.users.store') }}" class="p-5 md:p-8">
+        @csrf
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="form-label">NIP <span class="text-error">*</span></label>
+                <input type="text" name="nip" class="form-input @error('nip') !border-error @enderror" value="{{ old('nip') }}" required>
+                @error('nip')<span class="text-xs text-error mt-1 block">{{ $message }}</span>@enderror
+            </div>
+            <div>
+                <label class="form-label">Nama Lengkap <span class="text-error">*</span></label>
+                <input type="text" name="nama_lengkap" class="form-input @error('nama_lengkap') !border-error @enderror" value="{{ old('nama_lengkap') }}" required>
+                @error('nama_lengkap')<span class="text-xs text-error mt-1 block">{{ $message }}</span>@enderror
+            </div>
+            <div>
+                <label class="form-label">Jabatan <span class="text-error">*</span></label>
+                <input type="text" name="jabatan" class="form-input @error('jabatan') !border-error @enderror" value="{{ old('jabatan') }}" required>
+                @error('jabatan')<span class="text-xs text-error mt-1 block">{{ $message }}</span>@enderror
+            </div>
+            <div>
+                <label class="form-label">Pangkat / Golongan <span class="text-error">*</span></label>
+                <input type="text" name="pangkat_golongan" class="form-input @error('pangkat_golongan') !border-error @enderror" value="{{ old('pangkat_golongan') }}" placeholder="cth: III/a" required>
+                @error('pangkat_golongan')<span class="text-xs text-error mt-1 block">{{ $message }}</span>@enderror
+            </div>
+            <div>
+                <label class="form-label">Password <span class="text-error">*</span></label>
+                <input type="password" name="password" class="form-input @error('password') !border-error @enderror" minlength="8" required>
+                @error('password')<span class="text-xs text-error mt-1 block">{{ $message }}</span>@enderror
+            </div>
+            <div>
+                <label class="form-label">Konfirmasi Password <span class="text-error">*</span></label>
+                <input type="password" name="password_confirmation" class="form-input" required>
+            </div>
+        </div>
+        <div class="mt-8 flex items-center gap-4">
+            <button type="submit" class="px-8 py-3 bg-primary text-white hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md rounded-lg shadow-md transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                Simpan
+            </button>
+            <a href="{{ route('admin.users.index') }}" class="px-6 py-3 border border-outline text-on-surface font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors">
+                Batal
+            </a>
+        </div>
+    </form>
 </div>
 @endsection
